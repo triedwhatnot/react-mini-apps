@@ -1,0 +1,12 @@
+@keyframes bg-fade-out {
+    from {
+      background-color: aqua;
+    }
+    to {
+      background-color: transparent;
+    }
+  }
+
+.p-fade-out{
+    animation: bg-fade-out 1 2s ease-in-out;
+}
