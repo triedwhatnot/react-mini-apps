@@ -1,0 +1,12 @@
+.blink-it{
+    animation: blinking-effect infinite 0.8s linear;
+}
+
+@keyframes blinking-effect {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}

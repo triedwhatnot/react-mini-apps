@@ -4,6 +4,7 @@ import { ROUTES } from "./constant";
 import CountriesSearchBar from './countries-search';
 import TextDocAnimation from './text-doc-animation/index';
 import App from "./App";
+import CountdownTimer from "./countdown-timer";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -31,6 +32,20 @@ const router = createBrowserRouter(
                         //     crumb: () => "All Images",
                         // }} 
                     />
+                    <Route 
+                        path={ROUTES.COUNTDOWN_TIMER}
+                        element={<CountdownTimer />}
+                        // handle={{
+                        //     crumb: () => "All Images",
+                        // }} 
+                    />
+                    {/* <Route 
+                        path={ROUTES.STOPWATCH} 
+                        element={<Stop />}
+                        // handle={{
+                        //     crumb: () => "All Images",
+                        // }} 
+                    /> */}
                 {/* </Route> */}
                 {/* <Route 
                     index
