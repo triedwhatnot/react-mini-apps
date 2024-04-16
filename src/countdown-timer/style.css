@@ -1,5 +1,5 @@
 .blink-it{
-    animation: blinking-effect infinite 0.8s linear;
+    animation: blinking-effect infinite 0.7s linear alternate;
 }
 
 @keyframes blinking-effect {

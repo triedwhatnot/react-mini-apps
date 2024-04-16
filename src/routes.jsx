@@ -5,6 +5,7 @@ import CountriesSearchBar from './countries-search';
 import TextDocAnimation from './text-doc-animation/index';
 import App from "./App";
 import CountdownTimer from "./countdown-timer";
+import Stopwatch from "./stopwatch";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -39,13 +40,13 @@ const router = createBrowserRouter(
                         //     crumb: () => "All Images",
                         // }} 
                     />
-                    {/* <Route 
+                    <Route 
                         path={ROUTES.STOPWATCH} 
-                        element={<Stop />}
+                        element={<Stopwatch />}
                         // handle={{
                         //     crumb: () => "All Images",
                         // }} 
-                    /> */}
+                    />
                 {/* </Route> */}
                 {/* <Route 
                     index

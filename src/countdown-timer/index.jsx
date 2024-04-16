@@ -70,7 +70,7 @@ function CountdownTimer(){
             <div>{formatTimeToHHMMSS(timeInSecs)}</div>
             <button onClick={startPauseHandler}>{btnState === 1 ? "Start" : "Pause"}</button>
             <button onClick={resetHandler}>Reset</button>
-            {countdownOver && <div className="blink-it">Time&apos;s up</div>}
+            {countdownOver && <div className="blink-it">Time&apos;s up!</div>}
         </>
     )
 }
