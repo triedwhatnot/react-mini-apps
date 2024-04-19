@@ -6,4 +6,5 @@ export const ROUTES = {
     DEBOUNCED_SEARCH: `${BASE_PATH}debounced-search`,
     COUNTDOWN_TIMER: `${BASE_PATH}countdown-timer`,
     STOPWATCH: `${BASE_PATH}stopwatch`,
+    TOAST_NOTIFICATION: `${BASE_PATH}toast-notification`,
 }

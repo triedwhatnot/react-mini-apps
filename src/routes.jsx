@@ -6,6 +6,7 @@ import TextDocAnimation from './text-doc-animation/index';
 import App from "./App";
 import CountdownTimer from "./countdown-timer";
 import Stopwatch from "./stopwatch";
+import ToastNotifcation from "./toast-notification";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -43,6 +44,13 @@ const router = createBrowserRouter(
                     <Route 
                         path={ROUTES.STOPWATCH} 
                         element={<Stopwatch />}
+                        // handle={{
+                        //     crumb: () => "All Images",
+                        // }} 
+                    />
+                    <Route 
+                        path={ROUTES.TOAST_NOTIFICATION} 
+                        element={<ToastNotifcation />}
                         // handle={{
                         //     crumb: () => "All Images",
                         // }} 
