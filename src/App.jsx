@@ -39,7 +39,10 @@ import { Outlet } from "react-router-dom";
 function App(){
 
   return (
+    <>
+    <div>Only for you sandy baby!</div>
     <Outlet />
+    </>
   )
 }
 export default App
