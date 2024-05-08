@@ -7,4 +7,5 @@ export const ROUTES = {
     COUNTDOWN_TIMER: `${BASE_PATH}countdown-timer`,
     STOPWATCH: `${BASE_PATH}stopwatch`,
     TOAST_NOTIFICATION: `${BASE_PATH}toast-notification`,
+    STAR_RATING: `${BASE_PATH}star-rating`,
 }

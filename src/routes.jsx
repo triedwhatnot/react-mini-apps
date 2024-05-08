@@ -7,6 +7,7 @@ import App from "./App";
 import CountdownTimer from "./countdown-timer";
 import Stopwatch from "./stopwatch";
 import ToastNotifcation from "./toast-notification";
+import StarRating from "./star-rating";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -51,6 +52,13 @@ const router = createBrowserRouter(
                     <Route 
                         path={ROUTES.TOAST_NOTIFICATION} 
                         element={<ToastNotifcation />}
+                        // handle={{
+                        //     crumb: () => "All Images",
+                        // }} 
+                    />
+                    <Route 
+                        path={ROUTES.STAR_RATING} 
+                        element={<StarRating />}
                         // handle={{
                         //     crumb: () => "All Images",
                         // }} 

@@ -40,7 +40,7 @@ function App(){
 
   return (
     <>
-    <div>Only for you sandy baby!</div>
+    {/* <div>Only for you sandy baby!</div> */}
     <Outlet />
     </>
   )
