@@ -9,3 +9,4 @@ export const ROUTES = {
     TOAST_NOTIFICATION: `${BASE_PATH}toast-notification`,
     STAR_RATING: `${BASE_PATH}star-rating`,
 }
+
