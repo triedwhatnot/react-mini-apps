@@ -8,5 +8,6 @@ export const ROUTES = {
     STOPWATCH: `${BASE_PATH}stopwatch`,
     TOAST_NOTIFICATION: `${BASE_PATH}toast-notification`,
     STAR_RATING: `${BASE_PATH}star-rating`,
+    TIC_TAC_TOE: `${BASE_PATH}tic-tac-toe`,
 }
 

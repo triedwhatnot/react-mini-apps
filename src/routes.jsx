@@ -8,6 +8,7 @@ import CountdownTimer from "./countdown-timer";
 import Stopwatch from "./stopwatch";
 import ToastNotifcation from "./toast-notification";
 import StarRating from "./star-rating";
+import TicTacToe from "./tic-tac-toe";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -59,6 +60,13 @@ const router = createBrowserRouter(
                     <Route 
                         path={ROUTES.STAR_RATING} 
                         element={<StarRating />}
+                        // handle={{
+                        //     crumb: () => "All Images",
+                        // }} 
+                    />
+                    <Route 
+                        path={ROUTES.TIC_TAC_TOE} 
+                        element={<TicTacToe />}
                         // handle={{
                         //     crumb: () => "All Images",
                         // }} 
