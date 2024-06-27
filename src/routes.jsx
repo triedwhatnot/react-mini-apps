@@ -1,7 +1,7 @@
 import { Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 import { ROUTES } from "./constant";
 
-import CountriesSearchBar from './countries-search';
+import CountriesSearchBar from './autosuggest-countries/index';
 import TextDocAnimation from './text-doc-animation/index';
 import App from "./App";
 import CountdownTimer from "./countdown-timer";
