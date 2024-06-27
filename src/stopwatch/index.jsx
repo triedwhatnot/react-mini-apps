@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "./style.css";
 
 function formatMsToMMSS(ms){
     let mins = Math.floor(ms/(60*1000));
@@ -46,11 +45,18 @@ function Stopwatch(){
     }
 
     return (
-        <>
-            <div>Time : {formatMsToMMSS(currentTime-initialTime)}</div>
-            <button onClick={startStopHandler}>{btnType === 1 ? "Start" : "Stop"}</button>
-            <button onClick={resetHandler}>Reset</button>
-        </>
+        <div className="h-screen w-screen flex justify-center items-center bg-[#f9f8f3]">
+            <div className="flex flex-col h-full justify-evenly  items-center">
+                <h1 className="text-4xl">Get, set, go...!</h1>
+                <div className="text-6xl flex w-[295px]">
+                    {formatMsToMMSS(currentTime-initialTime)}
+                </div>
+                <div>
+                    <button className="bg-white border border-black hover:border-black hover:border-1 hover:font-bold  focus:outline-none rounded-[60%] h-[70px] w-[70px] p-[15px] mr-[100px]" onClick={startStopHandler}>{btnType === 1 ? "Start" : "Stop"}</button>
+                    <button className="bg-white border border-black hover:border-black hover:border-1 hover:font-bold focus:outline-none rounded-[60%] h-[70px] w-[70px] p-[15px]" onClick={resetHandler}>Reset</button>
+                </div>
+            </div>
+        </div>
     )
 }
 
