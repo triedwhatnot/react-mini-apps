@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import SearchLogo from "../assets/magnifying-glass.svg";
+import ThreeDotLoader from "../ThreeDotLoader";
 
 async function getCountries(query){
     try{
@@ -19,6 +20,7 @@ function CountriesSearchBar(){
     const [inputVal, setInputVal] = useState("");
     const [countriesArr, setCountriesArr] = useState(null);
     const [areSuggestionsVisible, setAreSuggestionsVisible] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const onCountryChange = (e)=>{
         setInputVal(e.target.value);
@@ -36,11 +38,13 @@ function CountriesSearchBar(){
         let isValid = true;
         let timerId = setTimeout(()=>{
             if(inputVal){
+                setIsLoading(true);
+                setAreSuggestionsVisible(true);
                 getCountries(inputVal)
                 .then(res => {
                     if(isValid) {
                         setCountriesArr(res.countries);
-                        setAreSuggestionsVisible(true);
+                        setIsLoading(false);
                     }
                 });
             }
@@ -70,7 +74,8 @@ function CountriesSearchBar(){
                     onChange={onCountryChange} 
                     onBlur={onInputBlur}
                     onFocus={onInputFocus}
-                    className="outline-none border border-gray-600 w-full h-[35px] pl-[50px] rounded"
+                    autoComplete="off"
+                    className="outline-none border border-gray-600 w-full h-[35px] pl-[50px] rounded shadow-md"
                 />
                 <img 
                     src={SearchLogo} 
@@ -80,13 +85,21 @@ function CountriesSearchBar(){
                 {   
                     areSuggestionsVisible ?
                     
+                        isLoading ?
+
+                        <div className="overflow-auto h-[200px] md:h-[300px] rounded flex justify-center items-center bg-[#eee] shadow-md">
+                            <ThreeDotLoader />
+                        </div>
+
+                        : 
+
                         countriesArr?.length ?
-                        <div className="overflow-auto h-[200px] md:h-[300px] rounded">
+                        <div className="overflow-auto h-[200px] md:h-[300px] rounded shadow-md bg-[#eee]">
                             {
                                 countriesArr.map(name => (
                                     <div 
                                         key={name}
-                                        className="bg-[#eee] p-2  pl-[50px]  relative"   
+                                        className="p-2 pl-[50px] relative"   
                                     >
                                         <img 
                                             src={SearchLogo} 
@@ -99,7 +112,7 @@ function CountriesSearchBar(){
                             }
                         </div> 
                         : 
-                        <div className="w-full h-[200px] md:h-[300px] rounded flex justify-center items-center bg-[#eee]">
+                        <div className="w-full h-[200px] md:h-[300px] rounded flex justify-center items-center bg-[#eee] shadow-md">
                             Oops, no countries found!
                         </div>
 

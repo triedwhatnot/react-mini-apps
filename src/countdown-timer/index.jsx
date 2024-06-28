@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./style.css";
 
 function formatTimeToHHMMSS(value){
@@ -19,6 +19,13 @@ function CountdownTimer(){
     const [btnState, setBtnState] = useState(1);
     const [timeInSecs, setTimeInSecs] = useState(0);
     const [countdownOver, setCountdownOver] = useState(false);
+
+    useEffect(()=>{
+        if(countdownOver){
+            alert("Time's up!");
+            setInputMins(0);
+        }
+    }, [countdownOver])
 
     const startPauseHandler = ()=>{
         if(btnState === 1){
@@ -64,14 +71,24 @@ function CountdownTimer(){
     }
 
     return (
-        <>  
-            <div>Enter minutes</div>
-            <input type="number" value={inputMins} onChange={inputChangeHandler}></input>
-            <div>{formatTimeToHHMMSS(timeInSecs)}</div>
-            <button onClick={startPauseHandler}>{btnState === 1 ? "Start" : "Pause"}</button>
-            <button onClick={resetHandler}>Reset</button>
-            {countdownOver && <div className="blink-it">Time&apos;s up!</div>}
-        </>
+        <div className="h-screen w-screen flex justify-center items-center bg-[#f9f8f3]">
+            <div className="flex flex-col h-full justify-evenly  items-center">
+                <div className="text-center">
+                    <div className="mb-[10px]">Enter time in min(s)</div>
+                    <input 
+                        type="number" 
+                        value={inputMins} 
+                        onChange={inputChangeHandler}
+                        className="p-[10px] outline-none"
+                    />
+                </div>
+                <div className="text-5xl">{formatTimeToHHMMSS(timeInSecs)}</div>
+                <div>
+                    <button className="bg-white border border-black hover:border-black hover:border-1 hover:font-bold focus:outline-none rounded-[60%] h-[70px] w-[70px] p-[15px] mr-[100px]" onClick={startPauseHandler}>{btnState === 1 ? "Start" : "Pause"}</button>
+                    <button className="bg-white border border-black hover:border-black hover:border-1 hover:font-bold focus:outline-none rounded-[60%] h-[70px] w-[70px] p-[15px]" onClick={resetHandler}>Reset</button>
+                </div>
+            </div>
+        </div>
     )
 }
 

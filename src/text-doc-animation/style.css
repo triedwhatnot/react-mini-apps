@@ -1,6 +1,6 @@
 @keyframes bg-fade-out {
     from {
-      background-color: aqua;
+      background-color: #0ea5e9;
     }
     to {
       background-color: transparent;
