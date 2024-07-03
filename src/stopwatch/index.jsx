@@ -48,7 +48,7 @@ function Stopwatch(){
         <div className="h-screen w-screen flex justify-center items-center bg-[#f9f8f3]">
             <div className="flex flex-col h-full justify-evenly  items-center">
                 <h1 className="text-4xl">Get, set, go...!</h1>
-                <div className="text-6xl flex w-[295px]">
+                <div className="text-6xl flex w-[295px]" data-testid="timestampEl">
                     {formatMsToMMSS(currentTime-initialTime)}
                 </div>
                 <div>

@@ -31,10 +31,10 @@ function CountdownTimer(){
         if(btnState === 1){
             if(inputMins <= 0) return;
     
-            if(timeInSecs === 0) {
-                setTimeInSecs(inputMins*60);
-                setCountdownOver(false);
-            }
+            // if(timeInSecs === 0) {
+            //     setTimeInSecs(inputMins*60);
+            //     setCountdownOver(false);
+            // }
 
             let timerId = setInterval(()=>{
                 setTimeInSecs(timeInSecs => {
@@ -82,7 +82,7 @@ function CountdownTimer(){
                         className="p-[10px] outline-none"
                     />
                 </div>
-                <div className="text-5xl">{formatTimeToHHMMSS(timeInSecs)}</div>
+                <div data-testid="timer-text" className="text-5xl">{formatTimeToHHMMSS(timeInSecs)}</div>
                 <div>
                     <button className="bg-white border border-black hover:border-black hover:border-1 hover:font-bold focus:outline-none rounded-[60%] h-[70px] w-[70px] p-[15px] mr-[100px]" onClick={startPauseHandler}>{btnState === 1 ? "Start" : "Pause"}</button>
                     <button className="bg-white border border-black hover:border-black hover:border-1 hover:font-bold focus:outline-none rounded-[60%] h-[70px] w-[70px] p-[15px]" onClick={resetHandler}>Reset</button>

@@ -64,11 +64,12 @@ function CountriesSearchBar(){
         <div className="h-screen w-screen flex flex-col justify-evenly items-center bg-[#f9f8f3]">
             <div className="text-center pl-[25px] pr-[25px] md:p-0">
                 <h1 className="text-4xl md:text-5xl">Where do you wanna go next ?</h1>
-                <p className="mt-[15px]">We autosuggest countries that start with your input. Just start typing...</p>
+                <p data-testid="subheading" className="mt-[15px]">We autosuggest countries that start with your input. Just start typing...</p>
             </div>
             <div className="w-2/3 md:w-1/2 h-1/2 relative">
                 <input 
                     name="countries-search-bar" 
+                    placeholder="Enter your text here..."
                     type="text" 
                     value={inputVal} 
                     onChange={onCountryChange} 
@@ -87,7 +88,7 @@ function CountriesSearchBar(){
                     
                         isLoading ?
 
-                        <div className="overflow-auto h-[200px] md:h-[300px] rounded flex justify-center items-center bg-[#eee] shadow-md">
+                        <div data-testid="loader-block" className="overflow-auto h-[200px] md:h-[300px] rounded flex justify-center items-center bg-[#eee] shadow-md">
                             <ThreeDotLoader />
                         </div>
 
@@ -99,7 +100,8 @@ function CountriesSearchBar(){
                                 countriesArr.map(name => (
                                     <div 
                                         key={name}
-                                        className="p-2 pl-[50px] relative"   
+                                        className="p-2 pl-[50px] relative"
+                                        data-testid="api-res-unit"   
                                     >
                                         <img 
                                             src={SearchLogo} 
@@ -112,7 +114,7 @@ function CountriesSearchBar(){
                             }
                         </div> 
                         : 
-                        <div className="w-full h-[200px] md:h-[300px] rounded flex justify-center items-center bg-[#eee] shadow-md">
+                        <div data-testid="no-country-res" className="w-full h-[200px] md:h-[300px] rounded flex justify-center items-center bg-[#eee] shadow-md">
                             Oops, no countries found!
                         </div>
 
