@@ -4,7 +4,6 @@ import ThreeDotLoader from "../ThreeDotLoader";
 
 async function getCountries(query){
     try{
-        if(!query) return;
         const API_URL = "https://algochurn-server.onrender.com/practice/countries/";
 
         const res = await fetch(API_URL + query);
@@ -13,6 +12,7 @@ async function getCountries(query){
     }
     catch(err){
         console.log("error occurred in getCountries: ", err);
+        return {countries: []};
     }
 }
 
@@ -95,7 +95,7 @@ function CountriesSearchBar(){
                         : 
 
                         countriesArr?.length ?
-                        <div className="overflow-auto h-[200px] md:h-[300px] rounded shadow-md bg-[#eee]">
+                        <div data-testid="api-res-block" className="overflow-auto h-[200px] md:h-[300px] rounded shadow-md bg-[#eee]">
                             {
                                 countriesArr.map(name => (
                                     <div 

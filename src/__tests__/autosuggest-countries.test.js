@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import CountriesSearchBar from "../autosuggest-countries";
 import { act } from "react-dom/test-utils";
@@ -44,55 +44,202 @@ describe("user interactions - happy flow", () => {
 
     afterEach(() => {
         vi.resetAllMocks();
+        vi.unstubAllGlobals();
         cleanup();
     });
 
-    const fetchMockForInQuery = vi.fn(() => {
-        return Promise.resolve({
-            json: () => {
-                return new Promise(res => {
-                    setTimeout(()=>{
-                        res(IN_MOCK_DATA);
-                    },1000);
-                });
-            }
+    const getMockedFetchQuery = (data) => {
+        return vi.fn(() => {
+            return Promise.resolve({
+                json: () => {
+                    return new Promise(res => {
+                        setTimeout(()=>{
+                            res(data);
+                        },1000);
+                    });
+                }
+            })
+        });
+    }
+
+    it("should show a loading state before API response is received for input - in", async () => {
+        vi.stubGlobal("fetch", getMockedFetchQuery(IN_MOCK_DATA));
+
+        render(<CountriesSearchBar />);
+
+        const inputEl = screen.getByRole("textbox");
+        await act(async () => {
+            fireEvent.change(inputEl, { target: {value: "in" } });
+            vi.advanceTimersByTime(500); // debounced search
+        });
+        
+        const loaderBlockEl = screen.getByTestId("loader-block");
+        expect(loaderBlockEl).toBeInTheDocument();
+    });
+
+    it("should render API response when received and dismiss loading state for input - in", async () => {
+        vi.stubGlobal("fetch", getMockedFetchQuery(IN_MOCK_DATA));
+
+        render(<CountriesSearchBar />);
+
+        const inputEl = screen.getByRole("textbox");
+        await act(async () => {
+            fireEvent.focus(inputEl);
+            fireEvent.change(inputEl, { target: { value : "in" } });
+            vi.advanceTimersByTime(500); // debounced search
         })
-    });
 
-    const fetchMockForWqQuery = vi.fn(() => {
-        return Promise.resolve({
-            json: () => {
-                return new Promise(res => {
-                    setTimeout(()=>{
-                        res(WQ_MOCK_DATA);
-                    },1000);
-                });
-            }
+        const loaderBlockEl = screen.getByTestId("loader-block");
+        expect(loaderBlockEl).toBeInTheDocument();
+
+        await act(async () => {
+            vi.advanceTimersByTime(1000);
         })
+        
+        const countriesBlockElArr = screen.getAllByTestId("api-res-unit");
+        expect(countriesBlockElArr.length).toBe(39);
     });
 
+    it("should dismiss loading state if input field loses focus for input - in", async () => {
+        vi.stubGlobal("fetch", getMockedFetchQuery(IN_MOCK_DATA));
 
-    it("should dismiss loading state if input field loses focus for input - in", ()=>{
+        render(<CountriesSearchBar />);
+
+        const inputEl = screen.getByRole("textbox");
+        await act(async () => {
+            fireEvent.focus(inputEl);
+            fireEvent.change(inputEl, { target : { value: "in" } });
+            vi.advanceTimersByTime(500);
+        });
+
+        const loaderBlockEl = screen.getByTestId("loader-block");
+        expect(loaderBlockEl).toBeInTheDocument();
+
+        await act(async () => {
+            fireEvent.blur(inputEl);
+        });
+        expect(loaderBlockEl).not.toBeInTheDocument();
+    });
+
+    it("should dismiss API response state if input field loses focus for input - in", async ()=>{
+        vi.stubGlobal("fetch", getMockedFetchQuery(IN_MOCK_DATA));
+
+        render(<CountriesSearchBar />);
+
+        const inputEl = screen.getByRole("textbox");
+        await act(async () => {
+            fireEvent.focus(inputEl);
+            fireEvent.change(inputEl, { target : { value : "in" }});
+            vi.advanceTimersByTime(500);
+        });
+        await act(async () => {
+            vi.advanceTimersByTime(1000);
+        });
+
+        const countriesBlockEl = screen.getByTestId("api-res-block");
+        expect(countriesBlockEl).toBeInTheDocument();
+
+        await act(async () => {
+            fireEvent.blur(inputEl);
+        });
+
+        expect(countriesBlockEl).not.toBeInTheDocument();
+    });
+
+    it("should render no countries found UI when API throws an error for input - in", async ()=>{
+        const mockedfetchError = vi.fn(() => {
+            return Promise.reject(new Error("error in fetching..."));
+        });
+
+        vi.stubGlobal("fetch", mockedfetchError);
+
+        render(<CountriesSearchBar />);
+
+        const inputEl = screen.getByRole("textbox");
+        await act(async () => {
+            fireEvent.focus(inputEl);
+            fireEvent.change(inputEl, { target: { value: "in" } });
+            vi.advanceTimersByTime(500);
+        });
+        
+        const noCountriesBlock = screen.getByTestId("no-country-res");
+        expect(noCountriesBlock).toBeInTheDocument();
 
     });
 
-    it("should dismiss API response state if input field loses focus for input - in", ()=>{
+    it("should hide API response state if input field is cleared for input - in", async ()=>{
+        vi.stubGlobal("fetch", getMockedFetchQuery(IN_MOCK_DATA));
 
+        render(<CountriesSearchBar />);
+
+        const inputEl = screen.getByRole("textbox");
+        await act(async () => {
+            fireEvent.focus(inputEl);
+            fireEvent.change(inputEl, { target: { value: "in" } });
+            vi.advanceTimersByTime(500);
+        });
+
+        await act(async () => {
+            vi.advanceTimersByTime(1000);
+        });
+        const apiResBlock = screen.getByTestId("api-res-block");
+        expect(apiResBlock).toBeInTheDocument();
+
+        await act(async () => {
+            fireEvent.change(inputEl, { target: { value: "" } });
+        });
+        await act(async () => {
+            vi.advanceTimersByTime(500);
+        });
+        expect(apiResBlock).not.toBeInTheDocument();
     });
 
-    it("should render loading state once again, if input field was initally in focus, then blurred and then again focussed before API response is received for input - in", ()=>{
+    it("should render 'no countries found' text, when API response contains no countries for input - qw", async ()=>{
+        vi.stubGlobal("fetch", getMockedFetchQuery(WQ_MOCK_DATA));
 
+        render(<CountriesSearchBar />);
+
+        const inputEl = screen.getByRole("textbox");
+        await act(async () => {
+            fireEvent.focus(inputEl);
+            fireEvent.change(inputEl, { target: { value: "wq" } });
+            vi.advanceTimersByTime(500);
+        });
+
+        await act(async () => {
+            vi.advanceTimersByTime(1000);
+        });
+        const noCountriesBlock = screen.getByTestId("no-country-res");
+        expect(noCountriesBlock).toBeInTheDocument();
     });
 
-    it("should render API response state once again, if input field was initally in focus, then blurred and then again focussed after API response is received for input - in", ()=>{
+    it("should show api response state when input field is focussed after being blurred, after response has already be fetched for input - in", async ()=>{
+        vi.stubGlobal("fetch", getMockedFetchQuery(IN_MOCK_DATA));
 
-    });
+        render(<CountriesSearchBar />);
 
-    it("should hide API response state if input field is cleared for input - in", ()=>{
+        const inputEl = screen.getByRole("textbox");
+        await act(async () => {
+            fireEvent.focus(inputEl);
+            fireEvent.change(inputEl, { target: { value: "in" } });
+            vi.advanceTimersByTime(500);
+        });
+        await act(async () => {
+            vi.advanceTimersByTime(1000);
+        });
+        
+        const apiResBlock = screen.getByTestId("api-res-block");
+        expect(apiResBlock).toBeInTheDocument();
 
-    });
+        await act(async () => {
+            fireEvent.blur(inputEl);
+        });
+        expect(apiResBlock).not.toBeInTheDocument();
 
-    it("should render 'no countries found' text, when API response contains no countries for input - qw", ()=>{
-
+        await act(async () => {
+            fireEvent.focus(inputEl);
+        });
+        const apiResBlockv2 = screen.getByTestId("api-res-block");
+        expect(apiResBlockv2).toBeInTheDocument();
     });
 });
