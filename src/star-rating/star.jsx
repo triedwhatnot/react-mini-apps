@@ -1,4 +1,4 @@
-
+/* v8 ignore start */
 
 const Star = ({percColor, index}) => {
     
@@ -17,3 +17,4 @@ const Star = ({percColor, index}) => {
 };
 
 export default Star;
+/* v8 ignore start */

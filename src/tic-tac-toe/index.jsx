@@ -11,7 +11,7 @@ const TicTacToe = () => {
     });
 
     const handlePlayerMove = (e) => {
-        if(e.target?.id){
+        if(e.target?.id && board[e.target.id] === 0){
             // update board for UI
             let index = e.target.id;
             let newBoard = JSON.parse(JSON.stringify(board));
@@ -72,7 +72,7 @@ const TicTacToe = () => {
                 {
                     board.map((el, idx) => {
                         return (
-                            <div id={idx} className='w-[95px] md:w-[195px] h-[95px] md:h-[195px] border border-black bg-[#fff] flex justify-center items-center text-black text-[50px]' key={idx}>
+                            <div data-testid="test-box" id={idx} className='w-[95px] md:w-[195px] h-[95px] md:h-[195px] border border-black bg-[#fff] flex justify-center items-center text-black text-[50px]' key={idx}>
                                 {el === 1 ? "X" : el === -1 ? "O" : " "}
                             </div>
                         )

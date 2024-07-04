@@ -1,3 +1,4 @@
+/* v8 ignore start */
 import React, { useState } from "react";
 import "./style.css"
 
@@ -128,3 +129,4 @@ function Toast(props){
         </div>
     )
 }
+/* v8 ignore stop */

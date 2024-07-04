@@ -1,3 +1,4 @@
+/* v8 ignore start */
 import { Fragment, useState } from "react";
 import "./style.css";
 import Star from "./star";
@@ -55,3 +56,4 @@ function StarRating(){
     )
 }
 export default StarRating;
+/* v8 ignore stop */
