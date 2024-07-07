@@ -10,4 +10,3 @@ export const ROUTES = {
     STAR_RATING: `${BASE_PATH}star-rating`,
     TIC_TAC_TOE: `${BASE_PATH}tic-tac-toe`,
 }
-

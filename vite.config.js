@@ -11,12 +11,6 @@ export default defineConfig({
     setupFiles: './src/test/setup.js',
     coverage: {
       provider: 'v8',
-      // reporter: ['text', 'json', 'lcov', 'clover', 'cobertura', 'html', 'text-summary'],
-      // reporterOptions: {
-      //   lcov: {
-      //     directory: './coverage'
-      //   }
-      // }
     }
   },
   esbuild: {
