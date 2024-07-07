@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, getByTestId, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, vi } from "vitest";
 import Stopwatch from "../stopwatch";
 import { act } from "react-dom/test-utils";
@@ -8,20 +8,32 @@ describe("initial render tests", () => {
         cleanup();
     });
 
-    it("should render all components initially", () => {
+    it("should render correct heading text", () => {
         // render
         render(<Stopwatch />);
 
         // query
-        const headingEl = screen.getByRole("heading", {name : "Get, set, go...!"});
-        const timeStampEl = screen.getByText("00:00:000");
-        const startBtn = screen.getByRole("button", {name : "Start"});
-        const resetBtn = screen.getByRole("button", {name : "Reset"});
+        const headingEl = screen.getByRole("heading");
 
         // assertion
-        expect(headingEl).toBeInTheDocument();
-        expect(timeStampEl).toBeInTheDocument();
+        expect(headingEl.innerHTML).toBe("Get, set, go...!");
+    });
+
+    it("should render 0 timestamp initially", () => {
+        render(<Stopwatch />);
+        const timeStampEl = screen.getByTestId("timestampEl");
+        expect(timeStampEl.innerHTML).toBe("00:00:000");
+    });
+
+    it("should render a button with text - Start", () => {
+        render(<Stopwatch />);
+        const startBtn = screen.getByRole("button", {name : "Start"});
         expect(startBtn).toBeInTheDocument();
+    });
+
+    it("should render a button with text - Reset", () => {
+        render(<Stopwatch />);
+        const resetBtn = screen.getByRole("button", {name : "Reset"});
         expect(resetBtn).toBeInTheDocument();
     });
 });

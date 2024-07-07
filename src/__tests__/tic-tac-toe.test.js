@@ -237,4 +237,52 @@ describe("user interactions", () => {
         expect(testBoxArr[7].innerHTML).toBe(" ");
         expect(testBoxArr[8].innerHTML).toBe(" ");
     });
+
+    it("should re-initialise the board on acknowledging the game end alert and lead to player 2 win with these moves", async () => {
+        vi.stubGlobal("alert", vi.fn((arg) => arg));
+        const alertSpy = vi.spyOn(window, 'alert');
+        
+        render(<TicTacToe />);
+
+        const testBoxArr = screen.getAllByTestId("test-box");
+        fireEvent.click(testBoxArr[2]);
+        fireEvent.click(testBoxArr[6]);
+        fireEvent.click(testBoxArr[5]);
+        fireEvent.click(testBoxArr[8]);
+        fireEvent.click(testBoxArr[7]);
+        fireEvent.click(testBoxArr[0]);
+        fireEvent.click(testBoxArr[4]);
+        fireEvent.click(testBoxArr[3]);
+
+        await act(async () => {
+            vi.advanceTimersByTime(500);
+        });
+
+        expect(alertSpy).toHaveBeenLastCalledWith('Player 2 won!! Restart Game?');
+
+        expect(testBoxArr[0].innerHTML).toBe(" ");
+        expect(testBoxArr[1].innerHTML).toBe(" ");
+        expect(testBoxArr[2].innerHTML).toBe(" ");
+        expect(testBoxArr[3].innerHTML).toBe(" ");
+        expect(testBoxArr[4].innerHTML).toBe(" ");
+        expect(testBoxArr[5].innerHTML).toBe(" ");
+        expect(testBoxArr[6].innerHTML).toBe(" ");
+        expect(testBoxArr[7].innerHTML).toBe(" ");
+        expect(testBoxArr[8].innerHTML).toBe(" ");
+
+        fireEvent.click(testBoxArr[3]);
+        fireEvent.click(testBoxArr[2]);
+        fireEvent.click(testBoxArr[1]);
+        fireEvent.click(testBoxArr[0]);
+        fireEvent.click(testBoxArr[4]);
+        fireEvent.click(testBoxArr[0]);
+        fireEvent.click(testBoxArr[7]);
+        fireEvent.click(testBoxArr[6]);
+
+        await act(async () => {
+            vi.advanceTimersByTime(500);
+        });
+
+        expect(alertSpy).toHaveBeenLastCalledWith('Player 2 won!! Restart Game?');
+    });
 });

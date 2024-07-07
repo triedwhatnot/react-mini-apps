@@ -1,15 +1,5 @@
 import { useState } from "react";
-
-function formatMsToMMSS(ms){
-    let mins = Math.floor(ms/(60*1000));
-    let secs = Math.floor((ms%(60*1000))/1000);
-    let milliSecs = (ms%(60*1000))%1000;
-
-    let formattedMins = mins < 10 ? `0${mins}` : mins;
-    let formattedSecs = secs < 10 ? `0${secs}` : secs;
-    let formattedMilliSecs = milliSecs < 100 ? (milliSecs < 10 ? `00${milliSecs}` : `0${milliSecs}`) : milliSecs;
-    return `${formattedMins}:${formattedSecs}:${formattedMilliSecs}`;
-}
+import { formatMsToMMSS } from "../utility";
 
 function Stopwatch(){
     const [initialTime, setInitialTime] = useState(0);

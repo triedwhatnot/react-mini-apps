@@ -1,4 +1,4 @@
-import { cleanup, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ROUTES } from "../constant";
@@ -73,6 +73,18 @@ describe("Routing related tests", () => {
 
         const headingEl = screen.getByText("Where do you wanna go next ?");
         expect(headingEl).toBeInTheDocument();
+    });
+
+    it("should render Not Found for any other route", () => {
+        const router = createMemoryRouter(Routes, {
+            initialEntries: [`/random-route`],
+            initialIndex: 0,
+          });
+        
+        render(<RouterProvider router={router} />);
+
+        const notDoundEl = screen.getByText("Not found");
+        expect(notDoundEl).toBeInTheDocument();
     });
 
 

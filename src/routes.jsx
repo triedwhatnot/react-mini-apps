@@ -41,7 +41,10 @@ const Routes = createRoutesFromElements(
         />
         <Route 
             path="/*" 
-            element={<div>Not found</div>} 
+            element={
+            <div className="h-screen w-screen flex justify-center items-center">
+                <div className="h-[50px] w-[100px] border border-black shadow-md flex justify-center items-center">Not found</div>
+            </div>} 
         />
     </>
 )

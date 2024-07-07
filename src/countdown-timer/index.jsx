@@ -1,17 +1,6 @@
 import { useEffect, useState } from "react";
 import "./style.css";
-
-function formatTimeToHHMMSS(value){
-    let hrs = Math.floor(value/3600);
-    let balance = value%3600;
-    let mins = Math.floor(balance/60);
-    let secs = balance%60;
-
-    let hrsStr = hrs < 10 ? `0${hrs}` : hrs;
-    let minsStr = mins < 10 ? `0${mins}` : mins;
-    let secsStr = secs < 10 ? `0${secs}` : secs;
-    return `${hrsStr}:${minsStr}:${secsStr}`;
-}
+import { formatTimeToHHMMSS } from "../utility";
 
 function CountdownTimer(){
     const [inputMins, setInputMins] = useState(0);

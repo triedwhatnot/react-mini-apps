@@ -170,6 +170,23 @@ describe('user interaction - happy flow', () => {
 });
 
 describe("user interaction - edge cases", () => {
+    it("shouldn't make an entry in notepad for empty textarea, provided 1 entry is already present in notepad", async () => {
+        vi.stubGlobal("alert", getAlertMock());
+
+        render(<TextDocAnimation />);
+
+        const inputEl = screen.getByTestId("textareaEl");
+        const dummyText = "This is a dummy text";
+        await act(async () => {
+            fireEvent.change(inputEl, { target: { value: dummyText }});
+            fireEvent.keyDown(inputEl, { key: "Enter" });
+            fireEvent.keyDown(inputEl, { key: "Enter" });
+        });
+
+        const textUnitsArr = screen.getAllByTestId("text-unit");
+        expect(textUnitsArr.length).toBe(1);
+    });
+
     it("shouldn't empty textarea value, if any other key is pressed other than enter key", async () => {
         vi.stubGlobal("alert", getAlertMock());
 
