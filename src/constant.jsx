@@ -1,4 +1,4 @@
-const BASE_PATH = "/";
+const BASE_PATH = "/projects/react-testing-suite/";
 
 export const ROUTES = {
     BASE_PATH: BASE_PATH,
