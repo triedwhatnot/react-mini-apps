@@ -41,7 +41,7 @@ const Routes = createRoutesFromElements(
             element={<TicTacToe />}
         />
         <Route 
-            path={ROUTES.BASE_PATH} 
+            path={ROUTES.HOME} 
             element={<Home />}
         />
         <Route 
