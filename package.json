@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage",
-    "vitestUI": "vitest --ui"
+    "vitestUI": "vitest --ui",
+    "build-deploy": "npm ci && npm run coverage && npm run build"
   },
   "dependencies": {
     "react": "^18.2.0",
