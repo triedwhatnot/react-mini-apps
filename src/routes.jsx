@@ -8,6 +8,7 @@ import Stopwatch from "./stopwatch";
 import ToastNotifcation from "./toast-notification";
 import StarRating from "./star-rating";
 import TicTacToe from "./tic-tac-toe";
+import Home from "./home";
 
 const Routes = createRoutesFromElements(
     <>
@@ -40,11 +41,16 @@ const Routes = createRoutesFromElements(
             element={<TicTacToe />}
         />
         <Route 
+            path={ROUTES.BASE_PATH} 
+            element={<Home />}
+        />
+        <Route 
             path="/*" 
             element={
             <div className="h-screen w-screen flex justify-center items-center">
                 <div className="h-[50px] w-[100px] border border-black shadow-md flex justify-center items-center">Not found</div>
-            </div>} 
+            </div>
+            } 
         />
     </>
 )
