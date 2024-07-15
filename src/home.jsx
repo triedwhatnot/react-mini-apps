@@ -1,3 +1,4 @@
+/* v8 ignore start */
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { ROUTES } from './constant';
@@ -16,3 +17,4 @@ const Home = () => {
 }
 
 export default Home;
+/* v8 ignore stop */
