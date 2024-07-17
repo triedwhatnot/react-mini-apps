@@ -1,8 +1,10 @@
 # Testing Suite - for React apps
 
 Try yourself: 
-[Coverage report](https://triedwhatnot.com/projects/react-testing-suite/coverage-report)
-[Live app demo](https://triedwhatnot.com/projects/react-testing-suite/home)
+
+[Coverage Report](https://triedwhatnot.com/projects/react-testing-suite/coverage-report)
+
+[Live App Demo](https://triedwhatnot.com/projects/react-testing-suite/home)
 
 
 ## Description
