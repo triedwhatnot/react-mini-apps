@@ -1,6 +1,10 @@
 # Testing Suite - for React apps
 
-Try yourself: [Live demo](https://voice2post.netlify.app/)
+Try yourself: 
+
+[Coverage Report](https://triedwhatnot.com/projects/react-testing-suite/coverage-report)
+
+[Live App Demo](https://triedwhatnot.com/projects/react-testing-suite/home)
 
 
 ## Description
